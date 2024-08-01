@@ -1,0 +1,71 @@
+ <!-- Topbar Navbar -->
+    <ul class="navbar-nav {% if hide_chat_list == false %}mr-auto{% endif %}">
+        <!-- Nav Item - User Information -->
+        <li class="nav-item dropdown no-arrow nav-logo">
+            <a class="nav-link logo" {% if SETTINGS.sso_enabled and SETTINGS.sso_home_url %}target="_parent"{% endif %} href="{% if SETTINGS.sso_enabled and SETTINGS.sso_home_url %} {{ SETTINGS.sso_home_url }} {% else %} {{ url('index') }} {% endif %}">
+                {% if THEME == 'light' %}
+                    {% if SETTINGS.light_theme_logo %}
+                        <img class="mr-2 large animate__animated animate__fadeIn" src="{{MEDIA_URL}}/settings/{{SETTINGS.light_theme_logo}}">
+                    {% elseif SETTINGS.logo %}
+                        <img class="mr-2 large animate__animated animate__fadeIn" src="{{MEDIA_URL}}/settings/{{SETTINGS.logo}}">
+                    {% else %}
+                        <img class="mr-2 large animate__animated animate__fadeIn" src="{{STATIC_URL}}/img/logo.png">
+                    {% endif %}
+                {% else %}
+                    {% if SETTINGS.logo %}
+                        <img class="mr-2 large animate__animated animate__fadeIn" src="{{MEDIA_URL}}/settings/{{SETTINGS.logo}}">
+                    {% else %}
+                        <img class="mr-2 large animate__animated animate__fadeIn" src="{{STATIC_URL}}/img/logo.png">
+                    {% endif %}
+                {% endif %}
+                {% if SETTINGS.small_logo %}
+                    <img class="small animate__animated animate__fadeIn" src="{{MEDIA_URL}}/settings/{{SETTINGS.small_logo}}">
+                {% else %}
+                    <img class="small animate__animated animate__fadeIn" src="{{STATIC_URL}}/img/logo_small.png">
+                {% endif %}
+            </a>
+        </li>
+    </ul>
+    <div class="status-change mr-2 {% if hide_chat_list == false %}ml-auto{% endif %}">
+        <div class="room-selector chat-room-selector" data-toggle="modal" data-target="#roomModals" >
+            <div class="room-selected" >
+                {{ chat_room.name }} 
+            </div>
+            <div class="launch-modal">
+                <i class="fas fa-list-ul"></i>
+            </div>
+        </div>
+    </div>
+    <!-- 
+    <div class="dropdown chat-room-selector mr-2 status-change {% if hide_chat_list == false %}ml-auto{% endif %}" style="display:none;">
+
+        <select class="" id="room-selector">
+            <optgroup label="{{ _('Joined') }}">
+                {% for select_room in chat_rooms %}
+                {% if select_room.is_joined %}
+                    <option value="{{select_room.id}}" data-unread="{{select_room.unread_count}}" data-users="{{select_room.users_count}}" {% if select_room.id == chat_room.id %}selected{% endif %} data-href="{{  url('chat-room', {'chatroomslug':select_room.slug}) }}">{{select_room.name}}</option>
+                {% endif %}
+                {% endfor %}
+            </optgroup>
+            <optgroup label="{{ _('Not Joined') }}">
+                {% for select_room in chat_rooms %}
+                {% if select_room.is_joined == false %}
+                    <option value="{{select_room.id}}" data-unread="{{select_room.unread_count}}" data-users="{{select_room.users_count}}" {% if select_room.id == chat_room.id %}selected{% endif %} data-href="{{  url('chat-room', {'chatroomslug':select_room.slug}) }}">{{select_room.name}}</option>
+                {% endif %}
+                {% endfor %}
+            </optgroup>
+        </select>
+
+    </div>
+    -->
+    <div style="position: relative;">
+        <div class='all-room-unread'>
+            <span class="badge badge-danger badge-all-unread"></span>
+        </div>
+    </div>
+
+    <div class=" mobile-chat-list-toggle">
+        <button class="chat-list-toggle btn-success btn-circle btn-sm">
+            <i class="fa fa-angle-left"></i>
+        </button>
+    </div>
